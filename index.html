@@ -142,19 +142,48 @@
     </div>
 
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+       const tg = window.Telegram.WebApp;
+tg.expand();
 
-        const user = tg.initDataUnsafe?.user;
-        document.getElementById('player-name').innerText = user ? user.first_name : "أيها المستخدم";
+// ضع بياناتك الحقيقية هنا اللي جبتها من JSONbin
+const BIN_ID = 'اكتب_هنا_الـ_Bin_ID'; 
+const MASTER_KEY = 'اكتب_هنا_الـ_Master_Key';
 
-        // إضافة الصوت
-        const systemSound = new Audio('system_up.mp3'); 
-        function playSound() {
-            systemSound.play().catch(() => {});
-        }
-        window.addEventListener('load', playSound);
-        document.body.addEventListener('click', playSound, { once: true });
+let xp = 0;
+
+// دالة جلب المهام
+async function loadQuests() {
+    try {
+        const response = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+            headers: { 'X-Master-Key': MASTER_KEY }
+        });
+        const data = await response.json();
+        
+        // دي أسماء الـ IDs اللي في النوافذ بتاعتك
+        if(document.getElementById('q1_text')) document.getElementById('q1_text').innerText = data.record.quest1;
+        if(document.getElementById('q2_text')) document.getElementById('q2_text').innerText = data.record.quest2;
+    } catch (error) {
+        console.error("خطأ في جلب المهام:", error);
+    }
+}
+
+window.onload = loadQuests;
+
+function goTo(id) {
+    document.querySelectorAll('.system-window').forEach(w => w.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+    tg.HapticFeedback.impactOccurred('light');
+}
+
+function addXP(amount, btnId) {
+    xp += amount;
+    if (xp > 100) xp = 100;
+    document.getElementById('xp-text').innerText = xp + " / 100";
+    document.getElementById('xp-bar').style.width = xp + "%";
+    document.getElementById(btnId).disabled = true;
+    document.getElementById(btnId).innerText = "تمت";
+    tg.HapticFeedback.notificationOccurred('success');
+}
     </script>
 </body>
 </html>
