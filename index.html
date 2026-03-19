@@ -201,8 +201,24 @@ const finalName = customName ? customName : tgName;
 // 4. وضعه في الشاشات
 document.getElementById('p-name1').innerText = finalName;
 document.getElementById('p-name2').innerText = finalName;
-        document.getElementById('p-name1').innerText = name;
-        document.getElementById('p-name2').innerText = name;
+      // ... الكود اللي قبله صح ...
+// وضعه في الشاشات
+document.getElementById('p-name1').innerText = finalName;
+document.getElementById('p-name2').innerText = finalName;
+// 1. سحب التاسكات من الرابط
+const t1 = urlParams.get('t1');
+const t2 = urlParams.get('t2');
+
+// 2. عرض التاسكات في الموقع (تأكد أن الـ IDs مطابقة للـ HTML عندك)
+if (t1) {
+    const taskElement1 = document.getElementById('task-text-1');
+    if (taskElement1) taskElement1.innerText = decodeURIComponent(t1);
+}
+if (t2) {
+    const taskElement2 = document.getElementById('task-text-2');
+    if (taskElement2) taskElement2.innerText = decodeURIComponent(t2);
+}
+// امسح أي سطر تحتهم فيه كلمة innerText = name;
 
         // وظيفة التنقل
        function goTo(id) {
