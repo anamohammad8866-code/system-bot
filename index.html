@@ -205,18 +205,18 @@ document.getElementById('p-name2').innerText = finalName;
 // وضعه في الشاشات
 document.getElementById('p-name1').innerText = finalName;
 document.getElementById('p-name2').innerText = finalName;
-// 1. سحب التاسكات من الرابط
+// 1. سحب التكات من الرابط
 const t1 = urlParams.get('t1');
 const t2 = urlParams.get('t2');
 
-// 2. عرض التاسكات في الموقع (تأكد أن الـ IDs مطابقة للـ HTML عندك)
+// 2. عرض التاسكات في الأزرار (q1 و q2)
 if (t1) {
-    const taskElement1 = document.getElementById('task-text-1');
-    if (taskElement1) taskElement1.innerText = decodeURIComponent(t1);
+    const q1Element = document.getElementById('q1');
+    if (q1Element) q1Element.innerText = decodeURIComponent(t1);
 }
 if (t2) {
-    const taskElement2 = document.getElementById('task-text-2');
-    if (taskElement2) taskElement2.innerText = decodeURIComponent(t2);
+    const q2Element = document.getElementById('q2');
+    if (q2Element) q2Element.innerText = decodeURIComponent(t2);
 }
 // امسح أي سطر تحتهم فيه كلمة innerText = name;
 
