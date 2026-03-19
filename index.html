@@ -187,8 +187,20 @@ tg.expand();
 let xp = 0;
 
         // وضع اسم المستخدم في كل الشاشات
-        const user = tg.initDataUnsafe?.user;
-        const name = user ? user.first_name : "أيها المستخدم";
+       // 1. سحب الاسم من الرابط
+const urlParams = new URLSearchParams(window.location.search);
+const customName = urlParams.get('name');
+
+// 2. البديل لو مفيش اسم في الرابط (اسم التيليجرام)
+const user = tg.initDataUnsafe?.user;
+const tgName = user ? user.first_name : "أيها اللاعب";
+
+// 3. الاسم النهائي اللي هيظهر
+const finalName = customName ? customName : tgName;
+
+// 4. وضعه في الشاشات
+document.getElementById('p-name1').innerText = finalName;
+document.getElementById('p-name2').innerText = finalName;
         document.getElementById('p-name1').innerText = name;
         document.getElementById('p-name2').innerText = name;
 
